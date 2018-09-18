@@ -2,6 +2,8 @@ tasks
 
 Anna
 - handle parsing (movie titles with commas, empty fields
+- how to handler titles with commas???
+    - theyre read in with quotes around them, but like how does one check for that?
 
 Tiff
 - handle organization of data structure
