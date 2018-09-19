@@ -13,10 +13,15 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
 	str = (char*)malloc(sizeof(char)*2000); //string buffer
 	char* token;
 	token = (char*)malloc(sizeof(char)*2000);
+	
+	//get headers
 	fgets(str, 500 , file);
+	
 	printf("string: %s\n",str);
+	
    	char* rest = (char*)malloc(sizeof(char)*1000);
    	rest = str;
+   	
    	//table headers array
    	char** headers = (char**)malloc(sizeof(char*)*28);
    	int count = 0;
@@ -43,14 +48,17 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
    	
    	
     
-	int i;
-	for (i=0; i<3; i++){
-		//printf("\theyyyyyyyy\t%d\n",i);
-		fgets(str, 500 , file);
+	int i=0;
+	//for (i=0; i<39; i++){
+	while(fgets(str,500,file)!=NULL){ //EACH ITERATION IS READING ONE LINE	
+		
+		CSVrecord *record = malloc(sizeof(CSVrecord));
+		record->data=malloc(12*sizeof(char*)); //array of size 12
+		
 		printf("LINE %d: '%s'\n", i+1, str);
 		count=0;
 		
-		int tokLen;// = strlen(token);
+		int tokLen;
 	
 		
 		char* parseStr = (char*)malloc(strlen(str)*sizeof(str));
@@ -65,7 +73,6 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
 		    	if(token[0]=='"'){
 		    		//first token in quote
 		    		token=stripFirstChar(token, strlen(token));
-		    		printf("\n\nstarting token:\t'%s'\n", token);
 		    		char* append = (char*)malloc(2000*sizeof(char));	
 		    		strcpy(append, token);		
 		    		token = strsep(&parseStr, ",");
@@ -78,10 +85,8 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
 					//following tokens in quote;
 		    		do{		    			
 		    			strcat(append,token);
-		    			printf("append so far: '%s'\n", append);
 		    			
 		    			token = strsep(&parseStr, ",");	
-		    			printf("fresh token: %s\n", token);	
 		    			if (token==NULL){
 		    				break;
 		    			} 
@@ -95,6 +100,13 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
 		   			token = stripLastChar(token);			   				   					   					   			
 		    	} //END QUOTE CASE
 		    	
+		    	if (strcmp(token,"")==0){
+		    		token = NULL;
+		    	}		    	
+		    	
+				if(token!=NULL)
+					token=trimWhiteSpace(token);
+				
 				printf("%s:\n'%s'\n", headers[index], token);
 				index++;
 				
@@ -107,12 +119,10 @@ int main(int argc, char *argv[] ){ //--------------------------MAIN-------------
 			//******TODO: HERE THE RECORD SHOULD BE COMPLETE
 			//******TODO: ADD RECORD TO LL HERE			
 	
-		printf("-----------------------------------------------------------------------\n");
+		printf("-----------------------------------------------------------------------\n");				
 		
-		
-		
-
-	} 
+		i++;
+	} //END FILE
 	return 0;
 }//----------------------------------------END MAIN---------------------------------------------------------
 
@@ -135,7 +145,6 @@ char* stripNewLineChar (char* token,int tokLen){
 	for (i=0; i<tokLen-1; i++){
 		replace[i]=token[i];
 	}
-	//printf("inside function str: '%s'\n", replace);
 
 	return replace;
 	
@@ -151,7 +160,6 @@ char* stripLastChar (char* token){
 	return replace;
 	
 }
-
 
 //strips the first character off a string
 char* stripFirstChar (char* token, int tokLen){
@@ -175,4 +183,26 @@ int searchForQuote (char* token){
 			return 1;
 	}
 	return 0;
+}
+
+//trims white spaces
+char* trimWhiteSpace(char* token){
+	int index, i;
+	index=0;
+	i=0;
+	char* trimmed = malloc(sizeof(char)*200);
+	//trim leading
+	while (token[index] == ' '){
+		index++;
+	}
+	for(i=0;i<strlen(token)-index;i++){
+		trimmed[i]=token[index+i];
+	}	
+	//trim trailing
+	index=strlen(trimmed)-1;
+	while(trimmed[index] == ' '){
+		index--;
+	}	
+	trimmed[index+1]='\0';	
+    return trimmed;
 }

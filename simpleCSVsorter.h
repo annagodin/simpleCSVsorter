@@ -39,10 +39,13 @@ int stringToInt (char* str);
 char* stripNewLineChar (char* token,int tokLen);
 char* stripFirstChar (char* token, int tokLen);
 char* stripLastChar (char* token);
+char* trimWhiteSpace(char* token);
 
-typedef struct CSVRecord {
-  char** record;
-} CSVRecord;
+//the struct will be an array of size 28, where each array entry will hold a string token.
+typedef struct CSVrecord {
+  char** data;
+  struct CSVrecord *next;
+} CSVrecord;
 
 //Suggestion: define a struct that mirrors a record (row) of the data set
 
