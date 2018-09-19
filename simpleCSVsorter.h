@@ -37,6 +37,8 @@
 
 int stringToInt (char* str);
 char* stripNewLineChar (char* token,int tokLen);
+char* stripFirstChar (char* token, int tokLen);
+char* stripLastChar (char* token);
 
 typedef struct CSVRecord {
   char** record;
