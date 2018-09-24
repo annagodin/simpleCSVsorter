@@ -1,4 +1,6 @@
-list: simpleCSVsorter.c
-	gcc -Wall -Werror -fsanitize=address -o simpleCSVsorter simpleCSVsorter.c
+all: simpleCSVsorter.c mergesort.o
+	gcc -o simpleCSVsorter simpleCSVsorter.c mergesort.o
+mergesort.o: mergesort.c
+	gcc -c mergesort.c
 clean:
-	rm -f simpleCSVsorter
+	rm -f simpleCSVsorter mergesort.o

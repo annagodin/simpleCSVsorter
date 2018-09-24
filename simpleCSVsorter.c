@@ -12,7 +12,7 @@
 //converts a string to an integer
 int stringToInt (char* str){
 	
-	int dec = 0, i, j, len;
+	int dec = 0, i, len;
 	len = strlen(str);
 	for(i=0; i<len; i++){
 		dec = dec * 10 + ( str[i] - '0' );
