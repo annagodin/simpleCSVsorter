@@ -8,6 +8,7 @@
 // cat small.csv | ./simpleCSVsorter -c movie_title
 
 
+
 //converts a string to an integer
 int stringToInt (char* str){
 	
@@ -29,7 +30,6 @@ char* stripNewLineChar (char* token,int tokLen){
 	}
 
 	return replace;
-	
 }
 
 //strips last character
@@ -106,7 +106,6 @@ void addRecToEnd(CSVrecord** head, CSVrecord *node){
     return;
 }
 
-
 //prints one Record Node
 void printRecNode(CSVrecord *rec){
 	printf("Record contents:\n");
@@ -115,11 +114,10 @@ void printRecNode(CSVrecord *rec){
 	printf("numCols:\t%d\n",rec->numCols);
 	printf("data values:\t");
 	for(i=0;i<rec->numCols; i++){
-			printf("%s\t",rec->data[i]);
+			printf("'%s'\t",rec->data[i]);
 	}
 	printf("\n");
 }
-
 
 //prints entire linked list of recnodes
 void printAllRecords(CSVrecord *frontRec){
@@ -141,10 +139,14 @@ void printAllRecords(CSVrecord *frontRec){
 
 int main(int argc, char *argv[] ){ //--------------------MAIN---------------------------------------
 	
+	if(argc<3){
+		printf("error, must specify column to search by\n");
+		return 1;
+	}
 	
 	char* colToSort = (char*)malloc(sizeof(char)*(strlen(argv[2]+1)));
 	strcpy(colToSort, argv[2]);
-	printf("sort by: %s\n", colToSort);
+	printf("sort by: %s\n", colToSort);		
 	
 	FILE *file;
 	file = stdin;
@@ -158,20 +160,17 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	//get headers
 	fgets(str, 500 , file);
-	
-	printf("headers: %s\n",str);
-	
+		
    	char* rest = (char*)malloc(sizeof(char)*1000);
    	rest = str;
    	
    	//table headers array
-   	char** headers = (char**)malloc(sizeof(char*)*28);
+   	//REALLOC!!!!!
+   	char** headers = (char**)malloc(sizeof(char*)*50);
    	int count = 0;
    	
    	//tokenizes the headers
 	while ((token = strtok_r(rest, ",", &rest))){ 
-        	
-        	
         	
         	//loads headers into array
         	headers[count] = malloc((strlen(token)+1)*sizeof(char));
@@ -190,9 +189,8 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
        }
   
    int numCols = count;
-   printf("num columns: %d\n", numCols);
+   //printf("num columns: %d\n", numCols);
    
-
    	printf("headers:\n");
    	for (count=0; count<numCols; count++){
    		printf("%s\n", headers[count]);
@@ -211,8 +209,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		count=0;
 		
 		int tokLen;
-	
-		
+			
 		char* parseStr = (char*)malloc(strlen(str)*sizeof(str));
 		parseStr=str;
 			//printf("some testing shit\n");
@@ -233,8 +230,6 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	    			if (token[strlen(token)-1] == '\n'){ 
 						token=stripNewLineChar(token,strlen(token));
 					}  		
-					//append[strlen(append)]=',';
-					//printf("append1: %s\n",append);
 					//end first token in quote
 					
 					//following tokens in quote;
@@ -267,12 +262,10 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 				if(token!=NULL)
 					token=trimWhiteSpace(token);
 				
-				//printf("%s:\n'%s'\n", headers[index], token);
-				printf("here\n");
 				
 				//*****TOKEN LOADED INTO A STRUCT
 				if(index==sortPos){
-						printf("here?");
+						//printf("here?");
 						record->sortVal=malloc(strlen(token)*sizeof(char));
 						strcpy(record->sortVal,token);
 				}
@@ -280,7 +273,6 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 					record->data[index] = malloc(strlen(token)*sizeof(char));
 					strcpy(record->data[index], token);
 				} else {
-					printf("token is null and shit");
 					record->data[index]=NULL;
 				}
 				//printf("\nfield within struct:\narray entry %d:\t'%s'\n", index, record->data[index]);
@@ -293,15 +285,18 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 			record->numCols=numCols;
 			//printf("sortval is:\t%s\nnum cols is \t%d\n", record->sortVal,record->numCols);
 			
-			printRecNode(record);
+			//printRecNode(record);
 			addRecToEnd(&frontRec,record);
-			//******TODO: HERE THE RECORD SHOULD BE COMPLETE
-			//******TODO: ADD RECORD TO LL HERE			
+			
+			//HERE THE RECORD SHOULD BE COMPLETE
+			//ADD RECORD TO LL HERE			
 	
 		//printf("-----------------------------------------------------------------------\n");				
 		
 		i++;
 	} //END FILE
+	
+	
 	printAllRecords(frontRec);
 	return 0;
 }//--------------------------------------------END MAIN---------------------------------------------------------
