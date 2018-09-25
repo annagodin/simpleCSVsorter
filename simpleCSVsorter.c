@@ -260,8 +260,8 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		    		token = NULL;
 		    	}		    	
 		    	
-				if(token!=NULL)
-					token=trimWhiteSpace(token);
+				//if(token!=NULL)
+					//token=trimWhiteSpace(token);
 				
 				
 				//*****TOKEN LOADED INTO A STRUCT

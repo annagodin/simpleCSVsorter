@@ -27,8 +27,10 @@ void addRecToEnd(CSVrecord** head, CSVrecord *node);
 
 
 struct CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b);
+int compareFields(char* a, char*b);
 void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef);
 void mergesort(CSVrecord** headRef);
+
 //void mergesort(CSVrecord *source);
 //void partition (CSVrecord *head, CSVrecord *front, CSVrecord *back){
 
