@@ -7,6 +7,11 @@
 
 // cat small.csv | ./simpleCSVsorter -c movie_title
 
+//COMMAND TO REDIRECT STDOUT TO A FILE:
+//cat small.csv | ./simpleCSVsorter -c food > sorted.csv
+
+
+
 
 
 //converts a string to an integer
@@ -130,6 +135,22 @@ void printAllRecords(CSVrecord *frontRec){
 	printf("\n");
 }
 
+//prints in csv format
+void printCSV (CSVrecord *frontRec){
+	CSVrecord *ptr = frontRec;
+	while(ptr!=NULL){
+		int i;
+		for(i=0;i<ptr->numCols; i++){
+			printf("%s",ptr->data[i]);
+			if(i!=ptr->numCols-1){
+				printf(",");
+			}
+		}
+		printf("\n");
+		ptr=ptr->next;
+	}
+
+}
 
 
 
@@ -146,7 +167,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	char* colToSort = (char*)malloc(sizeof(char)*(strlen(argv[2]+1)));
 	strcpy(colToSort, argv[2]);
-	printf("sort by: %s\n", colToSort);		
+	//printf("sort by: %s\n", colToSort);		
 	
 	FILE *file;
 	file = stdin;
@@ -182,7 +203,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
         	//finds col pos to sort by
         	if(strcmp(token,colToSort)==0){
         		sortPos=count;
-        		printf("arr positon of column to sort is\t%d\n",sortPos);
+        		//printf("arr positon of column to sort is\t%d\n",sortPos);
         	}
         	
         	count++;
@@ -191,10 +212,10 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
    int numCols = count;
    //printf("num columns: %d\n", numCols);
    
-   	printf("headers:\n");
+   /*	printf("headers:\n");
    	for (count=0; count<numCols; count++){
    		printf("%s\n", headers[count]);
-   	}
+   	}*/
    	
    	CSVrecord * frontRec = NULL;
     
@@ -206,7 +227,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		record->next=NULL;
 		record->data=malloc(30*sizeof(char*)); 
 		
-		printf("LINE %d: %s", i+1, str);
+		//printf("LINE %d: %s", i+1, str);
 		count=0;
 		
 		//int tokLen;
@@ -223,7 +244,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 				//QUOTE CASE if theres a quote at the beginning of a token aka theres a COMMA within the field
 		    	if(token[0]=='"'){
 		    		//first token in quote
-		    		token=stripFirstChar(token, strlen(token));
+		    		//token=stripFirstChar(token, strlen(token));
 		    		//printf("token now\t'%s'\n", token);
 		    		char* append = (char*)malloc(2000*sizeof(char));	
 		    		strcpy(append, token);		
@@ -253,7 +274,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		    		} while (searchForQuote(token)==0); 
 		   			
 		   			token = append;		   
-		   			token = stripLastChar(token);			   				   					   					   			
+		   			//token = stripLastChar(token);			   				   					   					   			
 		    	} //END QUOTE CASE
 		    	
 		    	
@@ -289,7 +310,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 				index++;
 				
 		  	 } //END LINE (RECORD)
-		printf("\n");
+		//printf("\n");
 			
 			record->numCols=numCols;
 			//printf("sortval is:\t%s\nnum cols is \t%d\n", record->sortVal,record->numCols);
@@ -305,15 +326,15 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	} //END FILE
 	
 	
-	printAllRecords(frontRec);
+	//printAllRecords(frontRec);
 	
 	//printf("initiating mergesort");
 	mergesort(&frontRec);
 	
-	printf("the list should (fingers crossed) should be sorted\n");
+	//printf("the list should (fingers crossed) should be sorted\n");
 	
-	printAllRecords(frontRec);
-	
+	//printAllRecords(frontRec);
+	printCSV(frontRec);
 	return 0;
 } //--------------------------------------------END MAIN---------------------------------------------------------
 

@@ -4,6 +4,14 @@
 #include <ctype.h>
 #include "simpleCSVsorter.h"
 
+
+char* toLowerCase (char* str){
+	int i;
+	for(i=0; i<strlen(str); i++){
+		str[i] = tolower(str[i]);
+	}
+	return str;
+}
 /*is_digit(): decides if its a digit/string/decimal */
 int is_digit(char*str){
 
@@ -42,52 +50,64 @@ int is_digit(char*str){
 
 //compares two fields and outputs: (1 if a>b, -1 if a<b, -1 if a=b)
 int compareFields(char* a, char*b){
-	printf("comparing '%s' and '%s'\n",a,b);
+	//printf("comparing '%s' and '%s'\n",a,b);
 	if (a==NULL){
-		printf("%s is less than %s\n\n",a,b);
+		//printf("%s is less than %s\n\n",a,b);
 		return -1;
 	} else if (b==NULL){
-		printf("%s is greater than %s\n\n",a,b);
+		//printf("%s is greater than %s\n\n",a,b);
 		return 1;
 	}
 	if(is_digit(a)!=0 && is_digit(b)!=0) { //not a string
 		if(is_digit(a)==1 && is_digit(b)==1){ //integer
-			printf("integers\n");
+			//printf("integers\n");
 			int numA = atoi(a);
 			int numB = atoi(b);
-			printf("a is %d and b is %d\n",numA,numB);
+			//printf("a is %d and b is %d\n",numA,numB);
 			if (numA<=numB){
-				printf("%d is less than %d\n\n",numA,numB);
+				//printf("%d is less than %d\n\n",numA,numB);
 				return -1;
 			}else{
-				printf("%d is greater than %d\n\n",numA,numB);
+				//printf("%d is greater than %d\n\n",numA,numB);
 				return 1;
 			}
 		} else { //decimal
-			printf("decimal\n");
+			//printf("decimal\n");
 			char *ptr;
 			double numA = strtod(a,&ptr);
 			double numB = strtod(b,&ptr);
-			printf("a is %lf and b is %lf\n",numA,numB);
+			//printf("a is %lf and b is %lf\n",numA,numB);
 			if (numA<=numB){
-				printf("%lf is less than %lf\n\n",numA,numB);
+				//printf("%lf is less than %lf\n\n",numA,numB);
 				return -1;
 			} else {
-				printf("%lf is greater than %lf\n\n",numA,numB);
+				//printf("%lf is greater than %lf\n\n",numA,numB);
 				return 1;
 			}	
 			//strtod(str,&ptr)
 		}
 	} else{//string
-		printf("string\n");
+		//printf("string\n");
+		if(a[0]=='"' && a[strlen(a)-1]=='"'){
+			a=stripFirstChar(a, strlen(a));
+			a=stripLastChar(a);
+		}			
+		a= toLowerCase(a);
 		a=trimWhiteSpace(a);
+		
+		if(b[0]=='"' && b[strlen(a)-1]=='"'){
+			b=stripFirstChar(b, strlen(b));
+			b=stripLastChar(b);
+		}
+		b=toLowerCase(b);
 		b=trimWhiteSpace(b);
-		printf("a is '%s' and b is '%s'\n",a,b);
-		if(strcmp(a,b)==-1 || strcmp(a,b)==0){
-			printf("%s is less than %s\n\n",a,b);
+		
+		//printf("a is '%s' and b is '%s'\n",a,b);
+		if(strcmp(a,b)<0 || strcmp(a,b)==0){
+			//printf("%s is less than %s\n\n",a,b);
 			return -1;
 		} else{
-			printf("%s is greater than %s\n\n",a,b);
+			//printf("%s is greater than %s\n\n",a,b);
 			return 1;
 		}
 	}
@@ -117,7 +137,7 @@ void mergesort(CSVrecord** headRef) {
     *headRef = SortedMerge(a, b);
 }
 
-//TODO 
+
 CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b) {
     
     CSVrecord* result = NULL;
@@ -166,11 +186,12 @@ void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef
     *backRef = slow->next;
     slow->next = NULL;
     
-    printf("<front list>\n\n");
+    /*printf("<front list>\n\n");
     printAllRecords(*frontRef);
     printf("-------------------------------------------------\n<back list>\n\n");
 	printAllRecords(*backRef);
 	printf("-------------------------------------------------\n");
+	*/
 }
 
 
