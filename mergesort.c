@@ -6,7 +6,7 @@
 
 
 /* sorts the linked list by changing next pointers (not data) */
-void merge_sort(CSVrecord** headRef) {
+void mergesort(CSVrecord** headRef) {
     CSVrecord* head = *headRef;
     CSVrecord* a;
     CSVrecord* b;
@@ -21,8 +21,8 @@ void merge_sort(CSVrecord** headRef) {
     FrontBackSplit(head, &a, &b);
 
     /* Recursively sort the sublists */
-    merge_sort(&a);
-    merge_sort(&b);
+    mergesort(&a);
+    mergesort(&b);
 
     /* answer = merge the two sorted lists together */
     *headRef = SortedMerge(a, b);
