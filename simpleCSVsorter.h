@@ -25,7 +25,7 @@ void printAllRecords (CSVrecord * frontRec);
 void printRecNode(CSVrecord *rec);
 void addRecToEnd(CSVrecord** head, CSVrecord *node);
 
-
+int is_digit(char*str);
 struct CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b);
 int compareFields(char* a, char*b);
 void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef);

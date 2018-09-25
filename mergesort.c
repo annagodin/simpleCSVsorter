@@ -4,34 +4,94 @@
 #include <ctype.h>
 #include "simpleCSVsorter.h"
 
+/*is_digit(): decides if its a digit/string/decimal */
+int is_digit(char*str){
+
+	int i;
+	int isDec = 0;
+
+	for(i = 0; i < strlen(str); i++){
+		
+		if((!isdigit(str[i])) && str[i] != '.'){
+			//printf("the string is not a number. \n");
+			return 0;		//string is a word
+		}
+		
+		if(str[i] == '.'){
+			//printf("the string has a period in it. \n");
+			isDec = 1;
+		}
+
+		if(isdigit(str[i])){
+			//printf("str[%d] val is: %c\n", i, str[i]);
+			continue;
+		}
+
+	}
+	
+	if(isDec == 1){
+		//printf("the string is a decimal. \n");
+		return 2;		//string is decimal value
+	}
+	else if(isDec == 0){
+		//printf("the string is an int. \n");
+		return 1;		//integer
+	}
+}
+
+
+//compares two fields and outputs: (1 if a>b, -1 if a<b, -1 if a=b)
 int compareFields(char* a, char*b){
-	if(isDigit(a)!=0 && isDigit(b)!=0) { //not a string
-		if(isDigit(a)==1 && isDigit(b)==1){ //integer
+	printf("comparing '%s' and '%s'\n",a,b);
+	if (a==NULL){
+		printf("%s is less than %s\n\n",a,b);
+		return -1;
+	} else if (b==NULL){
+		printf("%s is greater than %s\n\n",a,b);
+		return 1;
+	}
+	if(is_digit(a)!=0 && is_digit(b)!=0) { //not a string
+		if(is_digit(a)==1 && is_digit(b)==1){ //integer
+			printf("integers\n");
 			int numA = atoi(a);
 			int numB = atoi(b);
-			if (numA<numB)
-				return -1
-			else
+			printf("a is %d and b is %d\n",numA,numB);
+			if (numA<=numB){
+				printf("%d is less than %d\n\n",numA,numB);
+				return -1;
+			}else{
+				printf("%d is greater than %d\n\n",numA,numB);
 				return 1;
+			}
 		} else { //decimal
+			printf("decimal\n");
 			char *ptr;
 			double numA = strtod(a,&ptr);
 			double numB = strtod(b,&ptr);
-			if (numA<numB)
-				return -1
-			else
+			printf("a is %lf and b is %lf\n",numA,numB);
+			if (numA<=numB){
+				printf("%lf is less than %lf\n\n",numA,numB);
+				return -1;
+			} else {
+				printf("%lf is greater than %lf\n\n",numA,numB);
 				return 1;
+			}	
 			//strtod(str,&ptr)
 		}
 	} else{//string
+		printf("string\n");
 		a=trimWhiteSpace(a);
 		b=trimWhiteSpace(b);
-		if(strcmp(a,b)==-1){
+		printf("a is '%s' and b is '%s'\n",a,b);
+		if(strcmp(a,b)==-1 || strcmp(a,b)==0){
+			printf("%s is less than %s\n\n",a,b);
 			return -1;
 		} else{
+			printf("%s is greater than %s\n\n",a,b);
 			return 1;
 		}
 	}
+	
 }
 
 /* sorts the linked list by changing next pointers (not data) */

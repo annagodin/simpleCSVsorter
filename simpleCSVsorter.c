@@ -256,19 +256,27 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		   			token = stripLastChar(token);			   				   					   					   			
 		    	} //END QUOTE CASE
 		    	
+		    	
 		    	if (strcmp(token,"")==0){
+		    		//printf("seghere?\n");
 		    		token = NULL;
 		    	}		    	
-		    	
+		    	//printf("did we get here?\n");
 				//if(token!=NULL)
 					//token=trimWhiteSpace(token);
 				
 				
 				//*****TOKEN LOADED INTO A STRUCT
 				if(index==sortPos){
-						//printf("here?");
+					if (token==NULL){
+						record->sortVal=NULL;
+						//printf("we got here\n");
+					} else{
+						//printf("here?\n");
 						record->sortVal=malloc(strlen(token)*sizeof(char));
 						strcpy(record->sortVal,token);
+						//printf("hai\n");
+					}
 				}
 				if(token!=NULL){
 					record->data[index] = malloc(strlen(token)*sizeof(char));
@@ -301,6 +309,10 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	//printf("initiating mergesort");
 	mergesort(&frontRec);
+	
+	printf("the list should (fingers crossed) should be sorted\n");
+	
+	printAllRecords(frontRec);
 	
 	return 0;
 } //--------------------------------------------END MAIN---------------------------------------------------------

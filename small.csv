@@ -1,10 +1,9 @@
-food,calories,fat,sugar
-pizza,300,20,3
-ice cream,100,10,38
-pinapple,100,1,10
-salmon ,399,11,3
-twinkies,1000,420,100
-"candy, cane",200,2,80
-avocado,300,,8
-fast food,3030,933,293
- black white,88,23,12
+food,calories,fat,sugar,decimal
+pizza,300,20,3,3.4
+twinkies,1000,420,100,22.4
+pinapple,100,1,10,2993.3
+salmon ,399,11,3,22.1
+"candy, cane",200,2,80,889.0002
+avocado,300,,8,33333.2
+ black white,88,23,12,331.456
+ ice cream,100,10,38,902.4
