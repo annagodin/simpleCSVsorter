@@ -26,10 +26,12 @@ void printRecNode(CSVrecord *rec);
 void addRecToEnd(CSVrecord** head, CSVrecord *node);
 
 
+struct CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b);
+void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef);
+void mergesort(CSVrecord** headRef);
+//void mergesort(CSVrecord *source);
+//void partition (CSVrecord *head, CSVrecord *front, CSVrecord *back){
 
-//Suggestion: define a struct that mirrors a record (row) of the data set
 
-
-//Suggestion: prototype a mergesort function
 
 #endif

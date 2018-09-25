@@ -124,7 +124,7 @@ void printAllRecords(CSVrecord *frontRec){
 	CSVrecord *ptr = frontRec;
 	while (ptr!=NULL){
 		printRecNode(ptr);
-		printf("------------\n");
+		printf("\n\n");
 		ptr=ptr->next;
 	}
 	printf("\n");
@@ -203,12 +203,13 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	while(fgets(str,500,file)!=NULL){ //EACH ITERATION IS READING ONE LINE	
 		
 		CSVrecord *record = malloc(sizeof(CSVrecord));
+		record->next=NULL;
 		record->data=malloc(30*sizeof(char*)); 
 		
 		printf("LINE %d: %s", i+1, str);
 		count=0;
 		
-		int tokLen;
+		//int tokLen;
 			
 		char* parseStr = (char*)malloc(strlen(str)*sizeof(str));
 		parseStr=str;
@@ -292,13 +293,16 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 			//ADD RECORD TO LL HERE			
 	
 		//printf("-----------------------------------------------------------------------\n");				
-		
 		i++;
 	} //END FILE
 	
 	
 	printAllRecords(frontRec);
+	
+	//printf("initiating mergesort");
+	mergesort(&frontRec);
+	
 	return 0;
-}//--------------------------------------------END MAIN---------------------------------------------------------
+} //--------------------------------------------END MAIN---------------------------------------------------------
 
 
