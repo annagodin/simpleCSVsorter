@@ -12,6 +12,7 @@ char* toLowerCase (char* str){
 	}
 	return str;
 }
+
 /*is_digit(): decides if its a digit/string/decimal */
 int is_digit(char*str){
 
@@ -137,7 +138,7 @@ void mergesort(CSVrecord** headRef) {
     *headRef = SortedMerge(a, b);
 }
 
-
+//merges two sorted linked lists
 CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b) {
     
     CSVrecord* result = NULL;

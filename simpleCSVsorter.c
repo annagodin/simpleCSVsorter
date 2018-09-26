@@ -11,8 +11,13 @@
 //cat small.csv | ./simpleCSVsorter -c food > sorted.csv
 
 
-
-
+void freeLL(CSVrecord *frontRec){
+	CSVrecord *curr = NULL;
+	while ((curr=frontRec)!=NULL){
+		frontRec=frontRec->next;
+		free(curr);
+	}
+}
 
 //converts a string to an integer
 int stringToInt (char* str){
@@ -27,7 +32,6 @@ int stringToInt (char* str){
 
 //strips new line character off a string
 char* stripNewLineChar (char* token,int tokLen){
-	//printf("inside function BEFORE str: '%s'\n", token);
 	char* replace = (char*)malloc((tokLen-1)*sizeof(char));
 	int i;
 	for (i=0; i<tokLen-1; i++){
@@ -79,7 +83,7 @@ char* trimWhiteSpace(char* token){
 	int index, i;
 	index=0;
 	i=0;
-	char* trimmed = malloc(sizeof(char)*200);
+	char* trimmed = malloc(sizeof(char)*strlen(token));
 	//trim leading
 	while (token[index] == ' '){
 		index++;
@@ -138,11 +142,17 @@ void printAllRecords(CSVrecord *frontRec){
 //prints in csv format
 void printCSV (CSVrecord *frontRec){
 	CSVrecord *ptr = frontRec;
+	//ptr=ptr->next;
 	while(ptr!=NULL){
 		int i;
-		for(i=0;i<ptr->numCols; i++){
-			printf("%s",ptr->data[i]);
-			if(i!=ptr->numCols-1){
+		for(i=0;i<ptr->numCols; i++){		
+			if(ptr->data[i]==NULL){
+				printf("");
+			}else {
+				printf("%s",ptr->data[i]);
+			}
+			
+			if(i<ptr->numCols-1){
 				printf(",");
 			}
 		}
@@ -159,7 +169,6 @@ void printCSV (CSVrecord *frontRec){
 
 
 int main(int argc, char *argv[] ){ //--------------------MAIN---------------------------------------
-	
 	if(argc<3){
 		printf("error, must specify column to search by\n");
 		return 1;
@@ -167,7 +176,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	char* colToSort = (char*)malloc(sizeof(char)*(strlen(argv[2]+1)));
 	strcpy(colToSort, argv[2]);
-	//printf("sort by: %s\n", colToSort);		
+	
 	
 	FILE *file;
 	file = stdin;
@@ -175,18 +184,16 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	int sortPos=0;
 	char* str;
-	str = (char*)malloc(sizeof(char)*2000); //string buffer
+	str = (char*)malloc(sizeof(char)*800); //string buffer
 	char* token;
-	token = (char*)malloc(sizeof(char)*2000);
+	token = (char*)malloc(sizeof(char)*200);
 	
 	//get headers
-	fgets(str, 500 , file);
+	fgets(str, 900 , file);
 		
-   	char* rest = (char*)malloc(sizeof(char)*1000);
+   	char* rest = (char*)malloc(sizeof(char)*800);
    	rest = str;
    	
-   	//table headers array
-   	//REALLOC!!!!!
    	char** headers = (char**)malloc(sizeof(char*)*50);
    	int count = 0;
    	
@@ -203,36 +210,28 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
         	//finds col pos to sort by
         	if(strcmp(token,colToSort)==0){
         		sortPos=count;
-        		//printf("arr positon of column to sort is\t%d\n",sortPos);
         	}
         	
         	count++;
        }
   
    int numCols = count;
-   //printf("num columns: %d\n", numCols);
    
-   /*	printf("headers:\n");
-   	for (count=0; count<numCols; count++){
-   		printf("%s\n", headers[count]);
-   	}*/
    	
    	CSVrecord * frontRec = NULL;
     
 	int i=0;
 	
-	while(fgets(str,500,file)!=NULL){ //EACH ITERATION IS READING ONE LINE	
+	while(fgets(str,900,file)!=NULL){ //EACH ITERATION IS READING ONE LINE	
 		
 		CSVrecord *record = malloc(sizeof(CSVrecord));
 		record->next=NULL;
 		record->data=malloc(30*sizeof(char*)); 
 		
-		//printf("LINE %d: %s", i+1, str);
 		count=0;
 		
-		//int tokLen;
 			
-		char* parseStr = (char*)malloc(strlen(str)*sizeof(str));
+		char* parseStr = (char*)malloc((strlen(str)+1)*sizeof(char));
 		parseStr=str;
 			//printf("some testing shit\n");
 			int index = 0;
@@ -244,9 +243,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 				//QUOTE CASE if theres a quote at the beginning of a token aka theres a COMMA within the field
 		    	if(token[0]=='"'){
 		    		//first token in quote
-		    		//token=stripFirstChar(token, strlen(token));
-		    		//printf("token now\t'%s'\n", token);
-		    		char* append = (char*)malloc(2000*sizeof(char));	
+		    		char* append = (char*)malloc(strlen(parseStr)*sizeof(char));	
 		    		strcpy(append, token);		
 		    		//token = strsep(&parseStr, ",");
 	    			if (token[strlen(token)-1] == '\n'){ 
@@ -258,14 +255,13 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 					int counting=1;
 					
 		    		do{		    			
-		    			//strcat(append,token);		    			
+		    				    			
 		    			token = strsep(&parseStr, ",");	
 		    			if (token==NULL){
 		    				break;
 		    			} 
-		    			//printf("token now %d:\t'%s'\n",counting, token);
 		    			append[strlen(append)]=',';
-		    			//printf("append %d:\t%s\n",counting, append);
+		    			
 		    			if (token[strlen(token)-1] == '\n'){ 
 							token=stripNewLineChar(token,strlen(token));
 						}								 
@@ -274,7 +270,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		    		} while (searchForQuote(token)==0); 
 		   			
 		   			token = append;		   
-		   			//token = stripLastChar(token);			   				   					   					   			
+		   			   				   					   					   			
 		    	} //END QUOTE CASE
 		    	
 		    	
@@ -329,12 +325,39 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	//printAllRecords(frontRec);
 	
 	//printf("initiating mergesort");
+	
+	
+	
 	mergesort(&frontRec);
 	
 	//printf("the list should (fingers crossed) should be sorted\n");
 	
 	//printAllRecords(frontRec);
+	
+	
+	
+	
+	 
+   	//prints headers
+   	for (count=0; count<numCols; count++){
+   		printf("%s", headers[count]);
+   		if(count<numCols-1){
+   			printf(",");
+   		}
+   	}
+   	
+   	printf("\n");
 	printCSV(frontRec);
+	
+	/*to free:
+		-LL
+		-any other malloced vars
+	*/
+	
+	free(frontRec);
+	
+	fclose(file);
+	
 	return 0;
 } //--------------------------------------------END MAIN---------------------------------------------------------
 
