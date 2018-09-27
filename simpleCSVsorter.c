@@ -5,8 +5,6 @@
 #include "simpleCSVsorter.h"
 
 
-// cat small.csv | ./simpleCSVsorter -c movie_title
-
 //COMMAND TO REDIRECT STDOUT TO A FILE:
 //cat small.csv | ./simpleCSVsorter -c food > sorted.csv
 
@@ -32,13 +30,15 @@ int stringToInt (char* str){
 
 //strips new line character off a string
 char* stripNewLineChar (char* token,int tokLen){
-	char* replace = (char*)malloc((tokLen-1)*sizeof(char));
+	token[tokLen-1]='\0';
+	return token;
+	/*char* replace = (char*)malloc((tokLen-1)*sizeof(char));
 	int i;
 	for (i=0; i<tokLen-1; i++){
 		replace[i]=token[i];
 	}
 
-	return replace;
+	return replace;*/
 }
 
 //strips last character
@@ -71,7 +71,6 @@ int searchForQuote (char* token){
 	int i;
 	for (i=0; i<len; i++){
 		if (token[i]=='"'){
-			//printf("found quote in the token:\t%s\n",token);
 			return 1;
 		}
 	}
@@ -164,10 +163,6 @@ void printCSV (CSVrecord *frontRec){
 
 
 
-
-
-
-
 int main(int argc, char *argv[] ){ //--------------------MAIN---------------------------------------
 	if(argc<3){
 		printf("error, must specify column to search by\n");
@@ -177,7 +172,9 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	char* colToSort = (char*)malloc(sizeof(char)*(strlen(argv[2]+1)));
 	strcpy(colToSort, argv[2]);
 	
+	//printf("column to sort: %s\n", colToSort);
 	
+
 	FILE *file;
 	file = stdin;
 	
@@ -190,7 +187,10 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	//get headers
 	fgets(str, 900 , file);
-		
+	str=stripNewLineChar(str,strlen(str));
+	//printf("header line:'%s'\n", str);
+
+	
    	char* rest = (char*)malloc(sizeof(char)*800);
    	rest = str;
    	
@@ -202,14 +202,18 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
         	
         	//loads headers into array
         	headers[count] = malloc((strlen(token)+1)*sizeof(char));
-        	if (token[strlen(token)-1] == '\n'){ 
+        	if (token[strlen(token)-1] == '\n'){
+        		//printf("stripping newline"); 
 				token=stripNewLineChar(token,strlen(token));
 		    } 
         	strcpy(headers[count],token);
         	
+
+        	//printf("token:\t'%s'\tcolToSort:\t'%s'\n", token, colToSort);
         	//finds col pos to sort by
         	if(strcmp(token,colToSort)==0){
         		sortPos=count;
+        		//printf("sortpos:\t%d\n",sortPos);
         	}
         	
         	count++;
@@ -245,7 +249,6 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		    		//first token in quote
 		    		char* append = (char*)malloc(strlen(parseStr)*sizeof(char));	
 		    		strcpy(append, token);		
-		    		//token = strsep(&parseStr, ",");
 	    			if (token[strlen(token)-1] == '\n'){ 
 						token=stripNewLineChar(token,strlen(token));
 					}  		
@@ -274,25 +277,18 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		    	} //END QUOTE CASE
 		    	
 		    	
-		    	if (strcmp(token,"")==0){
-		    		//printf("seghere?\n");
+		    	if (strcmp(token,"")==0){		    		
 		    		token = NULL;
 		    	}		    	
-		    	//printf("did we get here?\n");
-				//if(token!=NULL)
-					//token=trimWhiteSpace(token);
 				
 				
 				//*****TOKEN LOADED INTO A STRUCT
 				if(index==sortPos){
 					if (token==NULL){
-						record->sortVal=NULL;
-						//printf("we got here\n");
+						record->sortVal=NULL;					
 					} else{
-						//printf("here?\n");
 						record->sortVal=malloc(strlen(token)*sizeof(char));
 						strcpy(record->sortVal,token);
-						//printf("hai\n");
 					}
 				}
 				if(token!=NULL){
@@ -301,41 +297,27 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 				} else {
 					record->data[index]=NULL;
 				}
-				//printf("\nfield within struct:\narray entry %d:\t'%s'\n", index, record->data[index]);
 				
 				index++;
 				
 		  	 } //END LINE (RECORD)
-		//printf("\n");
 			
 			record->numCols=numCols;
-			//printf("sortval is:\t%s\nnum cols is \t%d\n", record->sortVal,record->numCols);
 			
-			//printRecNode(record);
 			addRecToEnd(&frontRec,record);
 			
 			//HERE THE RECORD SHOULD BE COMPLETE
 			//ADD RECORD TO LL HERE			
 	
-		//printf("-----------------------------------------------------------------------\n");				
 		i++;
 	} //END FILE
 	
 	
 	//printAllRecords(frontRec);
 	
-	//printf("initiating mergesort");
-	
 	
 	
 	mergesort(&frontRec);
-	
-	//printf("the list should (fingers crossed) should be sorted\n");
-	
-	//printAllRecords(frontRec);
-	
-	
-	
 	
 	 
    	//prints headers
@@ -349,11 +331,10 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
    	printf("\n");
 	printCSV(frontRec);
 	
-	/*to free:
-		-LL
-		-any other malloced vars
-	*/
 	
+	
+
+
 	free(frontRec);
 	
 	fclose(file);

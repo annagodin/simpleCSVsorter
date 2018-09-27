@@ -1,10 +1,4 @@
-/*****
-*
-*	Define structures and function prototypes for your sorter
-*
-*
-*
-******/
+
 #ifndef SIMPLECSVSORTER_H     
 #define SIMPLECSVSORTER_H
 
@@ -16,7 +10,7 @@ typedef struct CSVrecord {
   struct CSVrecord *next;
 } CSVrecord;
 
-int stringToInt (char* str);
+//in simpleCSVsorter.c
 char* stripNewLineChar (char* token,int tokLen);
 char* stripFirstChar (char* token, int tokLen);
 char* stripLastChar (char* token);
@@ -25,15 +19,13 @@ void printAllRecords (CSVrecord * frontRec);
 void printRecNode(CSVrecord *rec);
 void addRecToEnd(CSVrecord** head, CSVrecord *node);
 
+//in mergesort.c
 char* toLowerCase (char* str);
 int is_digit(char*str);
 struct CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b);
 int compareFields(char* a, char*b);
 void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef);
 void mergesort(CSVrecord** headRef);
-
-//void mergesort(CSVrecord *source);
-//void partition (CSVrecord *head, CSVrecord *front, CSVrecord *back){
 
 
 

@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include "simpleCSVsorter.h"
 
-
+//converts a string to lower case
 char* toLowerCase (char* str){
 	int i;
 	for(i=0; i<strlen(str); i++){
@@ -89,20 +89,25 @@ int compareFields(char* a, char*b){
 		}
 	} else{//string
 		//printf("string\n");
-		if(a[0]=='"' && a[strlen(a)-1]=='"'){
+		//printf("a before: %s\tb before: %s\n",a,b);
+
+		if(a[0]=='"' /*&& a[strlen(a)-1]=='"'*/){
+			//printf("A: function to strip quote\n");
 			a=stripFirstChar(a, strlen(a));
 			a=stripLastChar(a);
 		}			
 		a= toLowerCase(a);
 		a=trimWhiteSpace(a);
-		
-		if(b[0]=='"' && b[strlen(a)-1]=='"'){
+		//printf("this is a:\t%s\n",a);
+
+		if(b[0]=='"' /*&& b[strlen(b)-1]=='"'*/){
+			//printf("B function to strip quote\n");
 			b=stripFirstChar(b, strlen(b));
 			b=stripLastChar(b);
 		}
 		b=toLowerCase(b);
 		b=trimWhiteSpace(b);
-		
+		//printf("this is b:\t%s\n",b);
 		//printf("a is '%s' and b is '%s'\n",a,b);
 		if(strcmp(a,b)<0 || strcmp(a,b)==0){
 			//printf("%s is less than %s\n\n",a,b);
@@ -121,20 +126,20 @@ void mergesort(CSVrecord** headRef) {
     CSVrecord* a;
     CSVrecord* b;
 
-    /* Base case -- length 0 or 1 */
+    //Base case
     if ((head == NULL) || (head->next == NULL))
     {
         return;
     }
 
-    /* Split head into 'a' and 'b' sublists */
+    //split head list into sublists, a and b
     FrontBackSplit(head, &a, &b);
 
-    /* Recursively sort the sublists */
+    //Recursively sort the sublists
     mergesort(&a);
     mergesort(&b);
 
-    /* answer = merge the two sorted lists together */
+    //merge the two sorted lists together
     *headRef = SortedMerge(a, b);
 }
 
@@ -143,13 +148,13 @@ CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b) {
     
     CSVrecord* result = NULL;
 
-    /* Base cases */
+    //Base cases
     if (a == NULL)
         return(b);
     else if (b==NULL)
         return(a);
 
-    /* Pick either a or b, and recur */
+    //compares the fields, and then recurs based on vals
     if (compareFields(a->sortVal, b->sortVal)==-1){
         result = a;
         result->next = SortedMerge(a->next, b);
@@ -162,17 +167,16 @@ CSVrecord* SortedMerge(CSVrecord* a, CSVrecord* b) {
 }
 
 
-/* Split the nodes of the given list into front and back halves,
-    and return the two lists using the reference parameters.
-    If the length is odd, the extra node should go in the front list.
-    Uses the fast/slow pointer strategy. */
+//Split into front and back halves, return the two lists
+//If the length is odd, extra node goes in the front list.
+ //fast/slow pointer strategy
 void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef){
     CSVrecord* fast;
     CSVrecord* slow;
     slow = source;
     fast = source->next;
 
-    /* Advance 'fast' two nodes, and advance 'slow' one node */
+    //Advance 'fast' two nodes, and advance 'slow' one node
     while (fast != NULL){
         fast = fast->next;
         if (fast != NULL) {
@@ -181,18 +185,11 @@ void FrontBackSplit(CSVrecord* source, CSVrecord** frontRef, CSVrecord** backRef
         }
     }
 
-    /* 'slow' is before the midpoint in the list, so split it in two
-    at that point. */
+    //'slow' is before the midpoint in the list, so split it in two at that point.
     *frontRef = source;
     *backRef = slow->next;
     slow->next = NULL;
     
-    /*printf("<front list>\n\n");
-    printAllRecords(*frontRef);
-    printf("-------------------------------------------------\n<back list>\n\n");
-	printAllRecords(*backRef);
-	printf("-------------------------------------------------\n");
-	*/
 }
 
 

@@ -1,0 +1,186 @@
+column to sort: plot_keywords
+header line:'genres,actor_1_name,movie_title,num_voted_users,cast_total_facebook_likes,actor_3_name,facenumber_in_poster,plot_keywords'
+token:	'genres'	colToSort:	'plot_keywords'
+token:	'actor_1_name'	colToSort:	'plot_keywords'
+token:	'movie_title'	colToSort:	'plot_keywords'
+token:	'num_voted_users'	colToSort:	'plot_keywords'
+token:	'cast_total_facebook_likes'	colToSort:	'plot_keywords'
+token:	'actor_3_name'	colToSort:	'plot_keywords'
+token:	'facenumber_in_poster'	colToSort:	'plot_keywords'
+token:	'plot_keywords'	colToSort:	'plot_keywords'
+sortpos:	7
+Record contents:
+sortVal:	huguenot|intolerance|medicis|protestant|wedding
+numCols:	8
+data values:	'Drama|History|War'	'Lillian Gish'	'Intolerance: Love's Struggle Throughout the Ages '	'10718'	'481'	'Walter Long'	'1'	'huguenot|intolerance|medicis|protestant|wedding'	
+
+
+Record contents:
+sortVal:	family relationships|gang|idler|poorhouse|thief
+numCols:	8
+data values:	'Crime|Drama'	'Stephen Carr'	'Over the Hill to the Poorhouse '	'5'	'4'	'Mary Carr'	'1'	'family relationships|gang|idler|poorhouse|thief'	
+
+
+Record contents:
+sortVal:	chewing gum|climbing a tree|france|translation problems|world war one
+numCols:	8
+data values:	'Drama|Romance|War'	'John Gilbert'	'The Big Parade '	'4849'	'108'	'Claire Adams'	'0'	'chewing gum|climbing a tree|france|translation problems|world war one'	
+
+
+Record contents:
+sortVal:	art deco|bible quote|dance|silent film|worker
+numCols:	8
+data values:	'Drama|Sci-Fi'	'Brigitte Helm'	'Metropolis '	'111841'	'203'	'Rudolf Klein-Rogge'	'1'	'art deco|bible quote|dance|silent film|worker'	
+
+
+Record contents:
+sortVal:	escape|femme fatale|german expressionism|lust|violence
+numCols:	8
+data values:	'Crime|Drama|Romance'	'Louise Brooks'	'Pandora's Box '	'7431'	'455'	'Fritz Kortner'	'1'	'escape|femme fatale|german expressionism|lust|violence'	
+
+
+Record contents:
+sortVal:	sibling rivalry|singer|sister act|whistling|wisecrack humor
+numCols:	8
+data values:	'Musical|Romance'	'Anita Page'	'The Broadway Melody '	'4546'	'109'	'Charles King'	'8'	'sibling rivalry|singer|sister act|whistling|wisecrack humor'	
+
+
+Record contents:
+sortVal:	bomb|bombing mission|munitions|oxford|royal flying corpsA
+numCols:	8
+data values:	'Drama|War'	'Jean Harlow'	'Hell's Angels '	'3753'	'457'	'James Hall'	'1'	'bomb|bombing mission|munitions|oxford|royal flying corps1'	
+
+
+Record contents:
+sortVal:	1910s|ambulance driver|italy|lake|nurse
+numCols:	8
+data values:	'Drama|Romance|War'	'Gary Cooper'	'A Farewell to Arms '	'3519'	'1284'	'Adolphe Menjou'	'1'	'1910s|ambulance driver|italy|lake|nurse'	
+
+
+Record contents:
+sortVal:	chorus girl|chorus line|director|gala premiere|song
+numCols:	8
+data values:	'Comedy|Musical|Romance'	'Ginger Rogers'	'42nd Street '	'7921'	'995'	'George Brent'	'2'	'chorus girl|chorus line|director|gala premiere|song'	
+
+
+Record contents:
+sortVal:	captain|marriage proposal|saloon|saloon singer|singer
+numCols:	8
+data values:	'Comedy|Drama|History|Musical|Romance'	'Mae West'	'She Done Him Wrong '	'4152'	'583'	'Louise Beavers'	'1'	'captain|marriage proposal|saloon|saloon singer|singer'	
+
+
+Record contents:
+sortVal:	bus|detective|love|money|reporter
+numCols:	8
+data values:	'Comedy|Romance'	'Claudette Colbert'	'It Happened One Night '	'64888'	'540'	'Walter Connolly'	'1'	'bus|detective|love|money|reporter'	
+
+
+Record contents:
+sortVal:	dance|dancer|dancing|horse|tap dancing
+numCols:	8
+data values:	'Comedy|Musical|Romance'	'Ginger Rogers'	'Top Hat '	'13269'	'824'	'Eric Blore'	'2'	'dance|dancer|dancing|horse|tap dancing'	
+
+
+Record contents:
+sortVal:	attack|fort|india|lancer|massacre
+numCols:	8
+data values:	'Action|Adventure|Romance|War'	'Errol Flynn'	'The Charge of the Light Brigade '	'3418'	'1621'	'Spring Byington'	'3'	'attack|fort|india|lancer|massacre'	
+
+
+Record contents:
+sortVal:	actor director writer|invention|machine|music score composed by director|tramp
+numCols:	8
+data values:	'Comedy|Drama|Family'	'Paulette Goddard'	'Modern Times '	'143086'	'352'	'Fred Malatesta'	'1'	'actor director writer|invention|machine|music score composed by director|tramp'	
+
+
+Record contents:
+sortVal:	coronation|fictitious country|king|princess|swashbucklerA
+numCols:	8
+data values:	'Adventure|Drama|Romance'	'David Niven'	'The Prisoner of Zenda '	'3256'	'1166'	'Ronald Colman'	'2'	'coronation|fictitious country|king|princess|swashbuckler1'	
+
+
+Record contents:
+sortVal:	dwarf|love|princess|queen|snow white
+numCols:	8
+data values:	'Animation|Family|Fantasy|Musical'	'Adriana Caselotti'	'Snow White and the Seven Dwarfs '	'133348'	'229'	'Lucille La Verne'	'1'	'dwarf|love|princess|queen|snow white'	
+
+
+Record contents:
+sortVal:	band|dance|ragtime|singer|violinist
+numCols:	8
+data values:	'Drama|Musical|Romance'	'Tyrone Power'	'Alexander's Ragtime Band '	'1381'	'1833'	'John Carradine'	'2'	'band|dance|ragtime|singer|violinist'	
+
+
+Record contents:
+sortVal:	eccentric|friend|house|monopoly|stenographer
+numCols:	8
+data values:	'Comedy|Drama|Romance'	'Jean Arthur'	'You Can't Take It with You '	'17799'	'1363'	'Lionel Barrymore'	'10'	'eccentric|friend|house|monopoly|stenographer'	
+
+
+Record contents:
+sortVal:	battle of the sexes|gallantry|honesty|indifference|scandal
+numCols:	8
+data values:	'Drama|History|Romance|War'	'Hattie McDaniel'	'Gone with the Wind '	'215340'	'1862'	'Thomas Mitchell'	'1'	'battle of the sexes|gallantry|honesty|indifference|scandal'	
+
+
+Record contents:
+sortVal:	camp|corruption|governor|senate|u.s. senate
+numCols:	8
+data values:	'Comedy|Drama'	'Claude Rains'	'Mr. Smith Goes to Washington '	'77392'	'1573'	'Thomas Mitchell'	'7'	'camp|corruption|governor|senate|u.s. senate'	
+
+
+Record contents:
+sortVal:	evil witch|tornado|witch|wizard|wizard of oz
+numCols:	8
+data values:	'Adventure|Family|Fantasy|Musical'	'Margaret Hamilton'	'The Wizard of Oz '	'291875'	'2509'	'Billie Burke'	'3'	'evil witch|tornado|witch|wizard|wizard of oz'	
+
+
+Record contents:
+sortVal:	1800s|bird|blue bird of happiness|foreign language adaptation|past
+numCols:	8
+data values:	'Drama|Family|Fantasy'	'Spring Byington'	'The Blue Bird '	'1047'	'293'	'Gale Sondergaard'	'1'	'1800s|bird|blue bird of happiness|foreign language adaptation|past'	
+
+
+Record contents:
+sortVal:	oil|oil field|oil tycoon|partnership|wildcatter
+numCols:	8
+data values:	'Adventure|Drama|Romance|Western'	'Hedy Lamarr'	'Boom Town '	'2269'	'2555'	'Claudette Colbert'	'8'	'oil|oil field|oil tycoon|partnership|wildcatter'	
+
+
+Record contents:
+sortVal:	apprentice|classical music|disney|mouse|orchestra
+numCols:	8
+data values:	'Animation|Family|Fantasy|Music'	'Leopold Stokowski'	'Fantasia '	'71321'	'16'	'(null)'	'0'	'apprentice|classical music|disney|mouse|orchestra'	
+
+
+Record contents:
+sortVal:	boy|conscience|fairy|jiminy cricket|pinocchio
+numCols:	8
+data values:	'Animation|Family|Fantasy|Musical'	'Mel Blanc'	'Pinocchio '	'90360'	'1178'	'Cliff Edwards'	'0'	'boy|conscience|fairy|jiminy cricket|pinocchio'	
+
+
+Record contents:
+sortVal:	death|estate|housekeeper|love|monte carlo
+numCols:	8
+data values:	'Drama|Film-Noir|Mystery|Thriller'	'Laurence Olivier'	'Rebecca '	'87424'	'2888'	'George Sanders'	'2'	'death|estate|housekeeper|love|monte carlo'	
+
+
+Record contents:
+sortVal:	coal mine|girl|school|village|wales
+numCols:	8
+data values:	'Drama|Family'	'Roddy McDowall'	'How Green Was My Valley '	'15840'	'1129'	'Barry Fitzgerald'	'5'	'coal mine|girl|school|village|wales'	
+
+
+Record contents:
+sortVal:	animal|bambi|deer|forest|hunter
+numCols:	8
+data values:	'Animation|Drama|Family'	'Sam Edwards'	'Bambi '	'94225'	'63'	'Ann Gillis'	'0'	'animal|bambi|deer|forest|hunter'	
+
+
+Record contents:
+sortVal:	american expatriate|casablanca morocco|gestapo|police|visa
+numCols:	8
+data values:	'Drama|Romance|War'	'Humphrey Bogart'	'Casablanca '	'387508'	'3442'	'Conrad Veidt'	'4'	'american expatriate|casablanca morocco|gestapo|police|visa'	
+
+
+
