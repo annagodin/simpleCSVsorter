@@ -114,6 +114,20 @@ void addRecToEnd(CSVrecord** head, CSVrecord *node){
     return;
 }
 
+void addhNodeToEnd(hNode** head, hNode *node){
+	hNode *last = *head;
+	
+    if (*head == NULL){
+       *head = node;
+       return;
+    }
+    while (last->next != NULL)
+        last = last->next;
+ 
+    last->next = node;
+    return;
+}
+
 //prints one Record Node
 void printRecNode(CSVrecord *rec){
 	printf("Record contents:\n");
@@ -172,7 +186,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	char* colToSort = (char*)malloc(sizeof(char)*(strlen(argv[2]+1)));
 	strcpy(colToSort, argv[2]);
 	
-	//printf("column to sort: %s\n", colToSort);
+
 	
 
 	FILE *file;
@@ -182,43 +196,54 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	int sortPos=0;
 	char* str;
 	str = (char*)malloc(sizeof(char)*800); //string buffer
+	
 	char* token;
 	token = (char*)malloc(sizeof(char)*200);
 	
+
 	//get headers
 	fgets(str, 900 , file);
 	str=stripNewLineChar(str,strlen(str));
-	//printf("header line:'%s'\n", str);
+	
 
 	
    	char* rest = (char*)malloc(sizeof(char)*800);
    	rest = str;
    	
-   	char** headers = (char**)malloc(sizeof(char*)*50);
+   	hNode *headersFront = NULL;
+
    	int count = 0;
    	
    	//tokenizes the headers
-	while ((token = strtok_r(rest, ",", &rest))){ 
-        	
+   	while ((token = strsep(&rest, ",")) != NULL){
+	
         	//loads headers into array
-        	headers[count] = malloc((strlen(token)+1)*sizeof(char));
+        	char* data = malloc((strlen(token)+1)*sizeof(char));
+        	
+        	hNode *node = malloc(sizeof(hNode));
         	if (token[strlen(token)-1] == '\n'){
         		//printf("stripping newline"); 
 				token=stripNewLineChar(token,strlen(token));
 		    } 
-        	strcpy(headers[count],token);
-        	
+        	//strcpy(headers[count],token);
+        	strcpy(data,token);
+        	node->data=data;
+        	addhNodeToEnd(&headersFront, node);
 
-        	//printf("token:\t'%s'\tcolToSort:\t'%s'\n", token, colToSort);
+        	
         	//finds col pos to sort by
         	if(strcmp(token,colToSort)==0){
         		sortPos=count;
-        		//printf("sortpos:\t%d\n",sortPos);
+        	
         	}
         	
         	count++;
        }
   
+   
+
+
+      //sets the number of columns
    int numCols = count;
    
    	
@@ -230,7 +255,7 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 		
 		CSVrecord *record = malloc(sizeof(CSVrecord));
 		record->next=NULL;
-		record->data=malloc(30*sizeof(char*)); 
+		record->data=malloc(numCols*sizeof(char*)); 
 		
 		count=0;
 		
@@ -319,16 +344,29 @@ int main(int argc, char *argv[] ){ //--------------------MAIN-------------------
 	
 	mergesort(&frontRec);
 	
-	 
+	 int c=0;
    	//prints headers
+   	hNode *ptr = headersFront;
+   	while (ptr!=NULL){
+   		printf("%s",ptr->data);
+   		ptr=ptr->next;
+   		if(c<numCols-1){
+   			printf(",");
+   		}
+   		c++;
+   	}
+
+   	printf("\n");
+
+   	/*
    	for (count=0; count<numCols; count++){
    		printf("%s", headers[count]);
    		if(count<numCols-1){
    			printf(",");
    		}
-   	}
+   	}*/
    	
-   	printf("\n");
+   	//printf("\n");
 	printCSV(frontRec);
 	
 	

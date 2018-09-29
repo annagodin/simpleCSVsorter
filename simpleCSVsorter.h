@@ -10,6 +10,12 @@ typedef struct CSVrecord {
   struct CSVrecord *next;
 } CSVrecord;
 
+typedef struct hNode{
+	char* data;
+	struct hNode *next;
+}hNode;
+
+
 //in simpleCSVsorter.c
 char* stripNewLineChar (char* token,int tokLen);
 char* stripFirstChar (char* token, int tokLen);
